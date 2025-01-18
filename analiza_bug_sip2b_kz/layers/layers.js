@@ -2,7 +2,7 @@ var wms_layers = [];
 
 
         var lyr_OSMwhite_0 = new ol.layer.Tile({
-            'title': 'OSM white',
+            'title': 'OSM light',
             'type':'base',
             'opacity': 1.000000,
             
@@ -24,6 +24,39 @@ var wms_layers = [];
                 url: 'https://mt1.google.com/vt/lyrs=s&x={x}&y={y}&z={z}'
             })
         });
+
+        var lyr_Gbokowodywm_1 = new ol.layer.Tile({
+            source: new ol.source.TileWMS(({
+              url: "https://wody.isok.gov.pl/gpservices/KZGW/MZP20_Glebokosc_WysokiePrawdopodPowodzi/MapServer/WMSServer",
+              attributions: ' ',
+              params: {
+                "LAYERS": "1",
+                "TILED": "true",
+                "VERSION": "1.3.0"},
+            })),
+            title: 'Głębokość wody <0.5 - >4 [m]',
+            opacity: 0.700000,
+
+          });
+        wms_layers.push([lyr_Gbokowodywm_1, 0]);
+
+        var lyr_Wodypowierzchniowe_2 = new ol.layer.Tile({
+            source: new ol.source.TileWMS(({
+              url: "https://wody.isok.gov.pl/gpservices/KZGW/MZP20_Glebokosc_WysokiePrawdopodPowodzi/MapServer/WMSServer",
+              attributions: ' ',
+              params: {
+                "LAYERS": "4",
+                "TILED": "true",
+                "VERSION": "1.3.0"},
+            })),
+            title: 'Wody powierzchniowe',
+            opacity: 0.500000,
+
+          });
+        wms_layers.push([lyr_Wodypowierzchniowe_2, 0]);
+
+
+
 var format_VMAPL22002_2 = new ol.format.GeoJSON();
 var features_VMAPL22002_2 = format_VMAPL22002_2.readFeatures(json_VMAPL22002_2, 
             {dataProjection: 'EPSG:4326', featureProjection: 'EPSG:3857'});
@@ -82,7 +115,7 @@ var lyr_AnalizaHistSantinel_5 = new ol.layer.Vector({
                 style: style_AnalizaHistSantinel_5,
                 popuplayertitle: 'Analiza Hist. Santinel',
                 interactive: false,
-    title: 'Analiza Hist. Santinel<br />\
+    title: 'Analiza Historyczna a Santinel<br />\
     <img src="styles/legend/AnalizaHistSantinel_5_0.png" /> -100 - -72<br />\
     <img src="styles/legend/AnalizaHistSantinel_5_1.png" /> -72 - -38<br />\
     <img src="styles/legend/AnalizaHistSantinel_5_2.png" /> -38 - -12<br />\
@@ -91,8 +124,23 @@ var lyr_AnalizaHistSantinel_5 = new ol.layer.Vector({
     <img src="styles/legend/AnalizaHistSantinel_5_5.png" /> 63 - 100<br />'
         });
 
-lyr_OSMwhite_0.setVisible(false);lyr_GoogleSatellite_1.setVisible(true);lyr_VMAPL22002_2.setVisible(true);lyr_Santinel2024_3.setVisible(true);lyr_Historycznetopo1940_4.setVisible(true);lyr_AnalizaHistSantinel_5.setVisible(false);
-var layersList = [lyr_OSMwhite_0,lyr_GoogleSatellite_1,lyr_VMAPL22002_2,lyr_Santinel2024_3,lyr_Historycznetopo1940_4,lyr_AnalizaHistSantinel_5];
+lyr_OSMwhite_0.setVisible(true);
+lyr_GoogleSatellite_1.setVisible(false);
+lyr_Gbokowodywm_1.setVisible(false);
+lyr_Wodypowierzchniowe_2.setVisible(false);
+lyr_VMAPL22002_2.setVisible(true);lyr_Santinel2024_3.setVisible(true);lyr_Historycznetopo1940_4.setVisible(true);lyr_AnalizaHistSantinel_5.setVisible(false);
+var layersList = [
+    lyr_OSMwhite_0,
+    lyr_GoogleSatellite_1,
+    lyr_Gbokowodywm_1,
+    lyr_Wodypowierzchniowe_2,
+
+    lyr_VMAPL22002_2,
+    lyr_Santinel2024_3,
+    lyr_Historycznetopo1940_4,
+    lyr_AnalizaHistSantinel_5];
+
+
 lyr_VMAPL22002_2.set('fieldAliases', {'POWIERZCHN': 'POWIERZCHN', 'ID': 'ID', 'Field': 'Field', 'pow': 'pow', 'obwod': 'obwod', 'wsp_zw': 'wsp_zw', });
 lyr_Santinel2024_3.set('fieldAliases', {'Id': 'Id', 'gridcode': 'gridcode', 'Shape_Leng': 'Shape_Leng', 'Shape_Area': 'Shape_Area', });
 lyr_Historycznetopo1940_4.set('fieldAliases', {'Id': 'Id', 'Shape_Leng': 'Shape_Leng', 'Shape_Area': 'Shape_Area', 'Field': 'Field', 'pow': 'pow', 'obw': 'obw', 'wsp_zw': 'wsp_zw', 'Field1': 'Field1', });

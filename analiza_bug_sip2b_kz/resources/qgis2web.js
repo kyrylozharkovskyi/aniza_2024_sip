@@ -470,8 +470,16 @@ var Abstract = new ol.control.Control({
 
             hideAbstract();
         } else {
+
+            // Tworzymy element linku
+            const link = document.createElement("a");
+            link.href = "https://github.com/kyrylozharkovskyi/aniza_2024_sip"; // Podaj adres URL
+            link.target = "_blank"; // Otwórz w nowej karcie
+            link.textContent = "SIP autor KZ";
+
             linkElement.classList.add("project-abstract-uncollapsed");
-            linkElement.innerHTML = 'SIP KZ';
+            // linkElement.innerHTML = 'SIP autor KZ';
+            linkElement.appendChild(link); // Dodajemy link jako dziecko
         }
 
         titleElement.appendChild(linkElement);
